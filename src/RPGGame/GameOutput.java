@@ -5,5 +5,11 @@ package RPGGame;
  */
 public class GameOutput
 {
+    public void printWelcomeMessage()
+    {
+        System.out.println("Hello and welcome to the a new game");
+        System.out.println("Please enter your name: ");
+    }
+
 
 }

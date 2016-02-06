@@ -22,11 +22,16 @@ public class Game
         // If player wins, reward with xp/level/health
         // If player dies, start from previously level
         // New WoW expansion complete
-
-        Player newPlayer = new Player();
-        newPlayer.addLevel();
-
-
+        //GameOutput gameoutput = new GameOutput();
+        //GameInput gameinput = new GameInput();
+        //gameoutput.printWelcomeMessage();
+        //String playerName = gameinput.getInput();
+        Player player = new Player("s", 200, 1, 0 , 20);
+        player.checkLevelUp(1, 0);
+        //player.addLevel(player);
+        //player.addExperience(player, 200);
 
     }
+
+
 }
