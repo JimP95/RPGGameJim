@@ -1,5 +1,8 @@
 package RPGGame;
 
+import java.awt.event.KeyEvent;
+import java.io.IOException;
+
 /**
  * Created by POU on 04-02-2016.
  */
@@ -25,9 +28,18 @@ public class Game
         //GameOutput gameoutput = new GameOutput();
         //GameInput gameinput = new GameInput();
         //gameoutput.printWelcomeMessage();
-        //String playerName = gameinput.getInput();
         Player player = new Player("s", 200, 1, 0 , 20);
         player.checkLevelUp(1, 0);
+        Map map = new Map();
+        map.createMap();
+        Controls controls = new Controls();
+
+        try {
+            controls.giveCommandsAndTakeInput();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         //player.addLevel(player);
         //player.addExperience(player, 200);
 

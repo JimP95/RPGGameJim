@@ -1,5 +1,7 @@
 package RPGGame;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Scanner;
 
 /**
@@ -7,7 +9,7 @@ import java.util.Scanner;
  */
 public class GameInput
 {
-    public String getInput() {
+    public String getStringInput() {
         String value = null;
         try {
             Scanner scanner = new Scanner(System.in);
@@ -17,4 +19,6 @@ public class GameInput
         }
         return value;
     }
+
+
 }

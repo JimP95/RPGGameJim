@@ -11,5 +11,10 @@ public class GameOutput
         System.out.println("Please enter your name: ");
     }
 
+    public void printConsoleCommands()
+    {
+        System.out.println();
+        System.out.println("You can move UP,DOWN,LEFT,RIGHT by selecting 1,2,3,4");
+    }
 
 }
