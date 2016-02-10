@@ -1,12 +1,12 @@
-package RPGGame;
+package RPGGAME;
 
 /**
- * Created by POU on 04-02-2016.
+ * Created by Jim on 2/5/2016.
  */
-public class Monster extends Player
+public class Monster extends BasicCharacter
 {
-    public Monster(int startHealth, int startLevel, int startAttackDamage)
+    public Monster(String name, int skills)
     {
-        super(startHealth, startLevel, startAttackDamage);
+        super(name, skills);
     }
 }

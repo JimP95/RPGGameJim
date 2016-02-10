@@ -1,62 +1,66 @@
-package RPGGame;
+package RPGGAME;
 
 /**
- * Created by POU on 04-02-2016.
+ * Created by Jim on 2/4/2016.
  */
-public class Player
+public class Player extends BasicCharacter
 {
-    private String playerName;
-    private int health;
-    private int level;
     private int experience;
-    private int attackDamage;
 
-    public Player(String newPlayerName, int startHealth, int startLevel, int startExperience, int startAttackDamage)
-    {
-        playerName = newPlayerName;
-        health = startHealth;
-        level = startLevel;
-        experience = startExperience;
-        attackDamage = startAttackDamage;
-        System.out.printf("%s %d %d %d %d", playerName, health, level, experience, attackDamage);
+    private int maxExperience;
+
+    /**
+     * Constructor.
+     * @param name - The name of the hero.
+     * @param skills - Decides how many skills the hero has.
+     */
+    public Player (String name, int skills) {
+
+        super(name, skills);
+
     }
 
-    public Player(int startHealth, int startLevel, int startAttackDamage)
-    {
-        health = startHealth;
-        level = startLevel;
-        attackDamage = startAttackDamage;
+    /**
+     * Sets the experience, and if the the experience is bigger/equal then/to max experience,
+     * level up.
+     * @param experience - The amount of experience.
+     */
+    public void setExperience(int experience) {
+
+        if (experience >= maxExperience) {
+
+            this.experience = experience - maxExperience;
+            setLevel(getLevel() + 1);
+
+        }
+        else
+            this.experience = experience;
+
     }
 
-    public int addExperience(Player player, int exp)
-    {
-        experience += exp;
-        System.out.print("    " + exp);
+    /** Gets the experience */
+    public int getExperience() {
+
         return experience;
+
     }
 
-    public int addLevel(Player player)
-    {
-        level += 1;
-        System.out.print("    " + level);
-        return level;
+    /** Gets the max amount of experience. */
+    public int getMaxExperience() {
+
+        return maxExperience;
+
     }
 
-    public void checkLevelUp(int currentLevel, int currentExp)
-    {
-        System.out.println();
-        for (double i = 1; i < 10; i++)
-        {
-            double v = 10 * (Math.pow((double) 1.7, (double) i));
-            System.out.print("   " + v);
-        }
-        System.out.println();
-        for (double i = 1; i < 10; i++)
-        {
-            double v = 10 * (Math.pow((double) 2.5, (double) i));
-            System.out.print("   " + v);
-        }
+    /**
+     * Calls the setLevel function in Character and overrides the function to set the max amount of experience.
+     * @param level - The level.
+     */
+    @Override
+    public void setLevel(int level) {
+
+        super.setLevel(level);
+        maxExperience = 200 * level;
+
     }
-
-
 }
