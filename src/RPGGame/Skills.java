@@ -1,7 +1,9 @@
-package RPGGAME;
+package RPGGame;
 
 /**
- * Created by Jim on 2/6/2016.
+ *  Skills - Skills is used to get/set damage and hold the skill array
+ *  @author Jim Poulsen
+ *  @version 1.0 2/6/2016
  */
 public class Skills
 {

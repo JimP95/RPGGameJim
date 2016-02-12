@@ -1,7 +1,10 @@
-package RPGGAME;
+package RPGGame;
 
 /**
- * Created by Jim on 2/4/2016.
+ *  Player - Player extends basicCharacter. This is the character
+ *  that will be used to play the actual game
+ *  @author Jim Poulsen
+ *  @version 1.0 2/7/2016
  */
 public class Player extends BasicCharacter
 {
@@ -11,8 +14,8 @@ public class Player extends BasicCharacter
 
     /**
      * Constructor.
-     * @param name - The name of the hero.
-     * @param skills - Decides how many skills the hero has.
+     * @param name - The player name
+     * @param skills - How many skills the player has
      */
     public Player (String name, int skills) {
 
@@ -21,8 +24,7 @@ public class Player extends BasicCharacter
     }
 
     /**
-     * Sets the experience, and if the the experience is bigger/equal then/to max experience,
-     * level up.
+     * Sets experience
      * @param experience - The amount of experience.
      */
     public void setExperience(int experience) {
@@ -38,14 +40,18 @@ public class Player extends BasicCharacter
 
     }
 
-    /** Gets the experience */
+    /**
+     *  A get for experience
+     */
     public int getExperience() {
 
         return experience;
 
     }
 
-    /** Gets the max amount of experience. */
+    /**
+     *  A get for max experience
+     */
     public int getMaxExperience() {
 
         return maxExperience;

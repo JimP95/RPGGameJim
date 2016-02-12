@@ -1,7 +1,9 @@
-package RPGGAME;
+package RPGGame;
 
 /**
- * Created by Jim on 2/8/2016.
+ *  MenuEnum - This is a baisc enum for the menu items
+ *  @author Jim Poulsen
+ *  @version 1.0 2/7/2016
  */
 public enum MenuEnum
 {

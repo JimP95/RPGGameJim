@@ -1,4 +1,4 @@
-package RPGGAME;
+package RPGGame;
 
 import java.awt.*;
 import java.io.File;
@@ -6,12 +6,16 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 
 /**
- * Created by Jim on 2/9/2016.
+ *  MapCreator - This class creates the map based on the symbols loaded
+ *  @author Jim Poulsen
+ *  @version 1.0 2/5/2016
  */
 public class MapCreator extends Map implements IMapTextures
 {
-
-
+    /**
+     *  This method add the the charArray which is responsible for the map creation.
+     *  @param mapFileName - the name of the file
+     */
     public void setMap(String mapFileName)
     {
         ArrayList<String> mapFromFile = getLinesFromFile(mapDirectory + "\\" + mapFileName);
@@ -36,7 +40,9 @@ public class MapCreator extends Map implements IMapTextures
             }
         }
     }
-
+    /**
+     *  Get the maps
+     */
     public String getMaps()
     {
         String fileList = "No maps found!";
@@ -51,7 +57,9 @@ public class MapCreator extends Map implements IMapTextures
 
         return fileList + "  ";
     }
-
+    /**
+     *  Method that gets the map to string
+     */
     public String getMap()
     {
         String stringMap = "  ";
@@ -69,7 +77,10 @@ public class MapCreator extends Map implements IMapTextures
         }
         return stringMap;
     }
-
+    /**
+     *  Get the map based on input
+     *  @param index - Index selected by the user
+     */
     public String getMapFileName(int index)
     {
         File[] files = getMapFiles();
@@ -79,7 +90,9 @@ public class MapCreator extends Map implements IMapTextures
 
         return files[index - 1].getName();
     }
-
+    /**
+     *  Get the map files from the directory with the end .map
+     */
     public File[] getMapFiles()
     {
         FilenameFilter filenameFilter = new FilenameFilter() {
@@ -96,7 +109,10 @@ public class MapCreator extends Map implements IMapTextures
         return new File(mapDirectory).listFiles(filenameFilter);
 
     }
-
+    /**
+     *  Get the textures for the map creation
+     *  @param texture - The texture found
+     */
     public ArrayList<Point> getTextureLocations(String[] texture)
     {
         ArrayList<Point> points = new ArrayList<Point>();
@@ -108,12 +124,20 @@ public class MapCreator extends Map implements IMapTextures
 
         return points;
     }
-
+    /**
+     *  Set the texture based on point
+     *  @param texture - The texture found
+     *  @param point - The point to set the texture at
+     */
     public void setTextureLocation(String[] texture, Point point)
     {
         map[point.x][point.y] = texture;
     }
-
+    /**
+     *  Move the texture based on point a to b
+     *  @param fromPoint - The point from where the texture should be moved from
+     *  @param toPoint - The point where the texture should be moved to
+     */
     public String moveTextureLocation(Point fromPoint, Point toPoint)
     {
         String result = "Failure: Wall";

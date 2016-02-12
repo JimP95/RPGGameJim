@@ -1,13 +1,18 @@
-package RPGGAME;
+package RPGGame;
 
 import java.util.Scanner;
 
 /**
- * Created by Jim on 2/4/2016.
+ *  MenuConsole - This class is the 'Input/Output' of the game, to the console
+ *  @author Jim Poulsen
+ *  @version 1.0 2/7/2016
  */
 public class MenuConsole
 {
-
+    /**
+     *  This methods gets the user input
+     *  @param promptString - The string that should be printed before user input
+     */
     public String getInput(String promptString)
     {
         System.out.print(promptString);
@@ -16,7 +21,10 @@ public class MenuConsole
 
         return input.nextLine();
     }
-
+    /**
+     *  Basic method print to console
+     *  @param outputString - the output string that should be printed
+     */
     public void printToConsole(String outputString)
     {
         for (int i = 0; i < 55; i++)
@@ -24,7 +32,11 @@ public class MenuConsole
 
         System.out.println(outputString);
     }
-
+    /**
+     *  Showmenu method that shows the different menus based on the menuType specified
+     *  @param menuType - The type of menu to be shown
+     *  @param additionalString - The string to be shown as menu if nothing is specified
+     */
     public String showMenu(MenuEnum menuType, String additionalString)
     {
         String input = "";

@@ -1,7 +1,9 @@
-package RPGGAME;
+package RPGGame;
 
 /**
- * Created by Jim on 2/9/2016.
+ *  CombatOutput - This class extends Combat and is only used to create the 'Console Interface'.
+ *  @author Jim Poulsen
+ *  @version 1.0 2/7/2016
  */
 public class CombatOutput extends Combat
 {
@@ -9,59 +11,62 @@ public class CombatOutput extends Combat
         super(character1, character2);
     }
 
+    /**
+     *  A method to create all the output when the combat begins
+     */
     public String createCombatScene() {
 
-        int charsAmount = 65;
+        int charsAmount = 75;
 
         charsAmount -= 10;
-        charsAmount -= character1.getName().toCharArray().length;
-        charsAmount -= character2.getName().toCharArray().length;
+        charsAmount -= player.getName().toCharArray().length;
+        charsAmount -= monster.getName().toCharArray().length;
 
         combat =   "  |||||||||||||||||||||||||||||PLAYER VS MONSTER|||||||||||||||||||||||||||||\n" +
-                "  || (" + character1.getName() + ")" + addEmptySpace(charsAmount) + "(" + character2.getName() + ") ||\n";
+                "  || (" + player.getName() + ")" + addEmptySpace(charsAmount) + "(" + monster.getName() + ") ||\n";
 
         charsAmount = 75;
         charsAmount -= 20;
-        charsAmount -= String.valueOf(character1.getLevel()).toCharArray().length;
-        charsAmount -= String.valueOf(character2.getLevel()).toCharArray().length;
+        charsAmount -= String.valueOf(player.getLevel()).toCharArray().length;
+        charsAmount -= String.valueOf(monster.getLevel()).toCharArray().length;
 
-        combat +=  "  || Level: " + character1.getLevel() + addEmptySpace(charsAmount) + "Level: " + character2.getLevel() + " ||\n";
+        combat +=  "  || Level: " + player.getLevel() + addEmptySpace(charsAmount) + "Level: " + monster.getLevel() + " ||\n";
 
         charsAmount = 75;
         charsAmount -= 24;
-        charsAmount -= String.valueOf(character1.getHealth()).toCharArray().length;
-        charsAmount -= String.valueOf(character1.getMaxHealth()).toCharArray().length;
-        charsAmount -= String.valueOf(character2.getHealth()).toCharArray().length;
-        charsAmount -= String.valueOf(character2.getMaxHealth()).toCharArray().length;
+        charsAmount -= String.valueOf(player.getHealth()).toCharArray().length;
+        charsAmount -= String.valueOf(player.getMaxHealth()).toCharArray().length;
+        charsAmount -= String.valueOf(monster.getHealth()).toCharArray().length;
+        charsAmount -= String.valueOf(monster.getMaxHealth()).toCharArray().length;
 
-        combat +=  "  || Health: " + character1.getHealth() + "/" + character1.getMaxHealth() +
-                addEmptySpace(charsAmount) + "Health: " + character2.getHealth() + "/" + character2.getMaxHealth() + " ||\n";
+        combat +=  "  || Health: " + player.getHealth() + "/" + player.getMaxHealth() +
+                addEmptySpace(charsAmount) + "Health: " + monster.getHealth() + "/" + monster.getMaxHealth() + " ||\n";
 
-        for (int i = 0; i < character1.getSkillArray().length + character2.getSkillArray().length; i++) {
+        for (int i = 0; i < player.getSkillArray().length + monster.getSkillArray().length; i++) {
 
-            if (i <= character1.getSkillArray().length - 1) {
+            if (i <= player.getSkillArray().length - 1) {
 
                 charsAmount = 75;
                 charsAmount -= 20;
-                charsAmount -= character1.getSkillArray()[i].getName().toCharArray().length;
-                charsAmount -= String.valueOf(character1.getSkillArray()[i].getMinDamage() * character1.getDamage()).toCharArray().length;
-                charsAmount -= String.valueOf(character1.getSkillArray()[i].getMaxDamage() * character1.getDamage()).toCharArray().length;
+                charsAmount -= player.getSkillArray()[i].getName().toCharArray().length;
+                charsAmount -= String.valueOf(player.getSkillArray()[i].getMinDamage() * player.getDamage()).toCharArray().length;
+                charsAmount -= String.valueOf(player.getSkillArray()[i].getMaxDamage() * player.getDamage()).toCharArray().length;
 
-                combat +=  "  || Skill[" + (i + 1) + "]: " + character1.getSkillArray()[i].getName() +
-                        " (" + (character1.getSkillArray()[i].getMinDamage() * character1.getDamage()) +
-                        "," + (character1.getSkillArray()[i].getMaxDamage() * character1.getDamage()) + ")";
+                combat +=  "  || Skill[" + (i + 1) + "]: " + player.getSkillArray()[i].getName() +
+                        " (" + (player.getSkillArray()[i].getMinDamage() * player.getDamage()) +
+                        "," + (player.getSkillArray()[i].getMaxDamage() * player.getDamage()) + ")";
 
-                if (i <= character2.getSkillArray().length - 1) {
+                if (i <= monster.getSkillArray().length - 1) {
 
                     charsAmount -= 14;
 
-                    charsAmount -= character2.getSkillArray()[i].getName().toCharArray().length;
-                    charsAmount -= String.valueOf(character2.getSkillArray()[i].getMinDamage() * character2.getDamage()).toCharArray().length;
-                    charsAmount -= String.valueOf(character2.getSkillArray()[i].getMaxDamage() * character2.getDamage()).toCharArray().length;
+                    charsAmount -= monster.getSkillArray()[i].getName().toCharArray().length;
+                    charsAmount -= String.valueOf(monster.getSkillArray()[i].getMinDamage() * monster.getDamage()).toCharArray().length;
+                    charsAmount -= String.valueOf(monster.getSkillArray()[i].getMaxDamage() * monster.getDamage()).toCharArray().length;
 
-                    combat +=  addEmptySpace(charsAmount) + "Skill[" + (i + 1) + "]: " + character2.getSkillArray()[i].getName() +
-                            " (" + (character2.getSkillArray()[i].getMinDamage() * character2.getDamage())
-                            + "," + (character2.getSkillArray()[i].getMaxDamage() * character2.getDamage()) + ") ||\n";
+                    combat +=  addEmptySpace(charsAmount) + "Skill[" + (i + 1) + "]: " + monster.getSkillArray()[i].getName() +
+                            " (" + (monster.getSkillArray()[i].getMinDamage() * monster.getDamage())
+                            + "," + (monster.getSkillArray()[i].getMaxDamage() * monster.getDamage()) + ") ||\n";
                 }
                 else {
 

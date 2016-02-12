@@ -1,7 +1,9 @@
-package RPGGAME;
+package RPGGame;
 
 /**
- * Created by Jim on 2/3/2016.
+ *  Main - Main
+ *  @author Jim Poulsen
+ *  @version 1.0 2/3/2016
  */
 public class Main
 {

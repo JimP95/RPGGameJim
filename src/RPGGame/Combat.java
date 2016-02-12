@@ -1,22 +1,38 @@
-package RPGGAME;
+package RPGGame;
 
 /**
- * Created by Jim on 2/4/2016.
+ *  Combat - Create a combat based on two characters Player and Monster
+ *  @author Jim Poulsen
+ *  @version 1.0 2/5/2016
  */
 public class Combat
 {
-    public BasicCharacter character1, character2;
-
+    /**
+     *  A player character and a monster Character
+     */
+    public BasicCharacter player, monster;
+    /**
+     *  A winner and a loser Character
+     */
     public BasicCharacter win, lose;
-
+    /**
+     *  This is for the combat output with a set a string of characters
+     */
     public String combat;
+    /**
+     *  A constructor
+     *  @param player - The player character
+     *  @param monster - The monster character
+     */
+    public Combat(BasicCharacter player, BasicCharacter monster) {
 
-    public Combat(BasicCharacter character1, BasicCharacter character2) {
-
-        this.character1 = character1;
-        this.character2 = character2;
+        this.player = player;
+        this.monster = monster;
     }
-
+    /**
+     *  This method is to add emptySpace easily
+     *  @param - The number of spaces needed
+     */
     public String addEmptySpace(int spaces) {
 
         String stringOfEmptySpace = "";
@@ -24,13 +40,16 @@ public class Combat
         for (int i = 0; i < spaces; i++)
             stringOfEmptySpace += " ";
 
-
         return stringOfEmptySpace;
     }
-
+    /**
+     *  This method is used for attacking in combat.
+     *  @param input - The index of the skill
+     *  @param playerAttack - This parameter is to determine if it's the monster who's attacking or the player
+     */
     public String attack(String input, boolean playerAttack) {
 
-        String result = "  You passed the round";
+        String result = "  You didn't die";
 
         int damage = 0;
 
@@ -38,19 +57,19 @@ public class Combat
 
             switch (input.toCharArray()[0]) {
 
-                case '1':   damage = calculateCharacterDamage(character1, 0);
-                    character2.setHealth(character2.getHealth() - damage);
-                    result = "  You hit " + character2.getName() + " for " + damage + "!";
+                case '1':   damage = calculateCharacterDamage(player, 0);
+                    monster.setHealth(monster.getHealth() - damage);
+                    result = "  You hit " + monster.getName() + " for " + damage + "!";
                     break;
 
-                case '2':   damage = calculateCharacterDamage(character1, 1);
-                    character2.setHealth(character2.getHealth() - damage);
-                    result = "  You hit " + character2.getName() + " for " + damage + "!";
+                case '2':   damage = calculateCharacterDamage(player, 1);
+                    monster.setHealth(monster.getHealth() - damage);
+                    result = "  You hit " + monster.getName() + " for " + damage + "!";
                     break;
 
-                case '3':   damage = calculateCharacterDamage(character1, 2);
-                    character2.setHealth(character2.getHealth() - damage);
-                    result = "  You hit " + character2.getName() + " for " + damage + "!";
+                case '3':   damage = calculateCharacterDamage(player, 2);
+                    monster.setHealth(monster.getHealth() - damage);
+                    result = "  You hit " + monster.getName() + " for " + damage + "!";
                     break;
 
             }
@@ -58,31 +77,35 @@ public class Combat
         }
         else if (input.toCharArray().length == 1 && !playerAttack) {
 
-            damage = calculateCharacterDamage(character2, 0);
+            damage = calculateCharacterDamage(monster, 0);
 
-            character1.setHealth(character1.getHealth() - damage);
+            player.setHealth(player.getHealth() - damage);
 
-            result = "\n  " + character2.getName() + " hit you for " + damage + "!";
-
-        }
-
-        if (character1.getHealth() == 0) {
-
-            win = character2;
-            lose = character1;
+            result = "\n  " + monster.getName() + " hit you for " + damage + "!";
 
         }
-        else if (character2.getHealth() == 0) {
 
-            win = character1;
-            lose = character2;
+        if (player.getHealth() == 0) {
+
+            win = monster;
+            lose = player;
+
+        }
+        else if (monster.getHealth() == 0) {
+
+            win = player;
+            lose = monster;
 
         }
 
         return result + "\n";
 
     }
-
+    /**
+     *  This method is to calculate the character damage
+     *  @param character - This is the character
+     *  @param skillIndex - The index of the skill
+     */
     private int calculateCharacterDamage(BasicCharacter character, int skillIndex) {
 
         int damage = (int) (Math.random() * (character.getSkillArray()[skillIndex].getMaxDamage() - character.getSkillArray()[skillIndex].getMinDamage()) + 1);
@@ -93,13 +116,17 @@ public class Combat
 
         return damage;
     }
-
+    /**
+     *  A get for winner
+     */
     public BasicCharacter getWinner() {
 
         return win;
 
     }
-
+    /**
+     *  A get for Loser
+     */
     public BasicCharacter getLoser() {
 
         return lose;

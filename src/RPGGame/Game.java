@@ -1,11 +1,12 @@
-package RPGGAME;
+package RPGGame;
 
 import java.awt.*;
 import java.util.ArrayList;
-import RPGGAME.MenuConsole;
 
 /**
- * Created by Jim on 2/3/2016.
+ *  Game - This class mainly holds the gameloop which runs the entire game.
+ *  @author Jim Poulsen
+ *  @version 1.0 2/7/2016
  */
 public class Game
 {
@@ -14,6 +15,9 @@ public class Game
     private MapCreator mapCreator;
     private MenuConsole menuConsole;
 
+    /**
+     *  A constructor for Game
+     */
     public Game()
     {
         menuConsole = new MenuConsole();
@@ -22,9 +26,12 @@ public class Game
         mapCreator = new MapCreator();
     }
 
+    /**
+     *  This method is for a quick output to the console and start the menu options
+     */
     public void beginGame()
     {
-        menuConsole.printToConsole(" || RPGGAME ||\n");
+        menuConsole.printToConsole(" || RPGGAME MENU ||\n");
 
         int input = convertToInteger(menuConsole.showMenu(MenuEnum.STARTMENU, ""));
 
@@ -36,7 +43,10 @@ public class Game
             default: beginGame();
         }
     }
-
+    /**
+     *  When the user has written a name and selected a map then this method will be
+     *  called to start the actual game
+     */
     private void startGame()
     {
         String createPlayerString = "Player";
@@ -46,12 +56,14 @@ public class Game
 
         createCharacter(createMonsterString);
 
-        menuConsole.getInput("  Map has been loaded, press enter to start the game\n  You will be 'P' on the map, and monsters will be 'M'!");
+        menuConsole.getInput("  Map loaded\n\n  You will be 'P' on the map, and monsters will be 'M'!\n\n  Press enter to start!");
 
         gameLoop();
 
     }
-
+    /**
+     *  Private method to start the actual loop
+     */
     private void gameLoop()
     {
         while(true)
@@ -152,7 +164,9 @@ public class Game
             }
         }
     }
-
+    /**
+     * This private method return the two characters fighting
+     */
     private BasicCharacter[] characterFight()
     {
         BasicCharacter[] charactersFighting = new BasicCharacter[2];
@@ -184,7 +198,11 @@ public class Game
         return charactersFighting;
 
     }
-
+    /**
+     * This private method moves gets the user input based on where the
+     * user wants to go
+     * @param input - The player input
+     */
     private void processUserInput(String input)
     {
         if (input.toCharArray().length == 1)
@@ -217,7 +235,9 @@ public class Game
             }
         }
     }
-
+    /**
+     *  Randomly move the monsters around
+     */
     private void moveMonsters()
     {
         for (BasicCharacter monster : characters)
@@ -229,7 +249,11 @@ public class Game
                 movePlayer(monster, new Point(xMovement, yMovement));
             }
     }
-
+    /**
+     * This private method moves the player around based on the points given
+     * @param basicCharacter - The character(Player) to move
+     * @param point - How much the player should be moved
+     */
     private void movePlayer(BasicCharacter basicCharacter, Point point)
     {
         Point oldLocation = basicCharacter.getLocation();
@@ -253,7 +277,11 @@ public class Game
         }
 
     }
-
+    /**
+     * Based on the map loaded, spawn monsters
+     * @param amount - The amount of monsters to spawn
+     * @param level - The level of the monsters
+     */
     private void spawnExtraMonsters(int amount, int level)
     {
         if (amount > 5)
@@ -276,7 +304,9 @@ public class Game
             mapCreator.setTextureLocation(monster.getTexture(), monster.getLocation());
         }
     }
-
+    /**
+     *  Show maps to user
+     */
     public void showMaps()
     {
         int input;
@@ -287,7 +317,10 @@ public class Game
         menuConsole.printToConsole("");
         menuConsole.printToConsole(mapCreator.getMap());
     }
-
+    /**
+     *  Convert a string to int
+     *  @param string - The string to convert
+     */
     private int convertToInteger(String string)
     {
         int value;
@@ -304,12 +337,15 @@ public class Game
         return value;
 
     }
-
+    /**
+     *  This methods creates a character
+     *  @param characterType - String of either Player or Monster
+     */
     public void createCharacter(String characterType)
     {
         if (characterType == "Player")
         {
-            menuConsole.printToConsole("  Name ");
+            menuConsole.printToConsole("  Hi there and thank you for playing!\n\n  Please write a name for your character");
 
             Player player = new Player(menuConsole.getInput("  Choose your name: "), 3);
 

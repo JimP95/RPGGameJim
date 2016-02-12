@@ -1,7 +1,9 @@
-package RPGGAME;
+package RPGGame;
 
 /**
- * Created by Jim on 2/7/2016.
+ *  IMapTextures - Interface with string arrays for creation of map
+ *  @author Jim Poulsen
+ *  @version 1.0 2/7/2016
  */
 public interface IMapTextures
 {

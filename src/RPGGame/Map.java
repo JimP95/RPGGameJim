@@ -1,15 +1,16 @@
-package RPGGAME;
+package RPGGame;
 
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Created by Jim on 2/5/2016.
+ *  Map - This class gets the files from the specified folder
+ *  @author Jim Poulsen
+ *  @version 1.0 2/4/2016
  */
 public class Map implements IMapTextures
 {
-
     public final char wallSymbol = 'W', floorSymbol = ' ', heroSymbol = 'Q', monsterSymbol = 'M';
 
     public String mapDirectory;
