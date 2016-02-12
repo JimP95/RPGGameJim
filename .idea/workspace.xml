@@ -1,37 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="68b0b4f5-cb8c-4fbf-b004-c0d3d9059ff2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/RPGGAME/BasicCharacter.class" afterPath="$PROJECT_DIR$/out/RPGGAME/BasicCharacter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/RPGGAME/Combat.class" afterPath="$PROJECT_DIR$/out/RPGGAME/Combat.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/RPGGAME/CombatOutput.class" afterPath="$PROJECT_DIR$/out/RPGGAME/CombatOutput.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/RPGGAME/Game.class" afterPath="$PROJECT_DIR$/out/RPGGAME/Game.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/RPGGAME/IMapTextures.class" afterPath="$PROJECT_DIR$/out/RPGGAME/IMapTextures.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/RPGGAME/Main.class" afterPath="$PROJECT_DIR$/out/RPGGAME/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/RPGGAME/Map.class" afterPath="$PROJECT_DIR$/out/RPGGAME/Map.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/RPGGAME/MapCreator$1.class" afterPath="$PROJECT_DIR$/out/RPGGAME/MapCreator$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/RPGGAME/MapCreator.class" afterPath="$PROJECT_DIR$/out/RPGGAME/MapCreator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/RPGGAME/MenuConsole$1.class" afterPath="$PROJECT_DIR$/out/RPGGAME/MenuConsole$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/RPGGAME/MenuConsole.class" afterPath="$PROJECT_DIR$/out/RPGGAME/MenuConsole.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/RPGGAME/MenuEnum.class" afterPath="$PROJECT_DIR$/out/RPGGAME/MenuEnum.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/RPGGAME/Monster.class" afterPath="$PROJECT_DIR$/out/RPGGAME/Monster.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/RPGGAME/Player.class" afterPath="$PROJECT_DIR$/out/RPGGAME/Player.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/RPGGAME/Skills.class" afterPath="$PROJECT_DIR$/out/RPGGAME/Skills.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RPGGame/BasicCharacter.java" afterPath="$PROJECT_DIR$/src/RPGGame/BasicCharacter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RPGGame/Combat.java" afterPath="$PROJECT_DIR$/src/RPGGame/Combat.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RPGGame/CombatOutput.java" afterPath="$PROJECT_DIR$/src/RPGGame/CombatOutput.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RPGGame/Game.java" afterPath="$PROJECT_DIR$/src/RPGGame/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RPGGame/IMapTextures.java" afterPath="$PROJECT_DIR$/src/RPGGame/IMapTextures.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RPGGame/Main.java" afterPath="$PROJECT_DIR$/src/RPGGame/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RPGGame/Map.java" afterPath="$PROJECT_DIR$/src/RPGGame/Map.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RPGGame/MapCreator.java" afterPath="$PROJECT_DIR$/src/RPGGame/MapCreator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RPGGame/MenuConsole.java" afterPath="$PROJECT_DIR$/src/RPGGame/MenuConsole.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RPGGame/MenuEnum.java" afterPath="$PROJECT_DIR$/src/RPGGame/MenuEnum.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RPGGame/Monster.java" afterPath="$PROJECT_DIR$/src/RPGGame/Monster.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RPGGame/Player.java" afterPath="$PROJECT_DIR$/src/RPGGame/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RPGGame/Skills.java" afterPath="$PROJECT_DIR$/src/RPGGame/Skills.java" />
-    </list>
+    <list default="true" id="68b0b4f5-cb8c-4fbf-b004-c0d3d9059ff2" name="Default" comment="" />
     <ignored path="RPGGameJim.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -767,12 +737,12 @@
       <workItem from="1455083281699" duration="3367000" />
       <workItem from="1455083144514" duration="704000" />
       <workItem from="1455261853939" duration="1563000" />
-      <workItem from="1455263555845" duration="9361000" />
+      <workItem from="1455263555845" duration="9703000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17858000" />
+    <option name="totallyTimeSpent" value="18200000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1394" height="916" extended-state="7" />
