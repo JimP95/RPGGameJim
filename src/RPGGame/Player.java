@@ -50,15 +50,6 @@ public class Player extends BasicCharacter
     }
 
     /**
-     *  A get for max experience
-     */
-    public int getMaxExperience() {
-
-        return maxExperience;
-
-    }
-
-    /**
      * Calls the setLevel function in Character and overrides the function to set the max amount of experience.
      * @param level - The level.
      */
