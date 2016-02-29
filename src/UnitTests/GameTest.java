@@ -3,6 +3,10 @@ package UnitTests;
 import RPGGame.Game;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.Scanner;
+
 import static org.junit.Assert.*;
 
 /**
@@ -17,6 +21,7 @@ public class GameTest
     {
         game = new Game();
         game.createCharacter(playerType);
+
     }
 
     @Test

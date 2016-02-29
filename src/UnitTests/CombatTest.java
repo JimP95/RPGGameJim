@@ -31,4 +31,6 @@ public class CombatTest {
         String result = combat.attack("2", true);
         assertEquals("  You hit Monster1 for 1000!", result);
     }
+
+
 }

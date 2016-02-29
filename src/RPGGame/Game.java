@@ -1,6 +1,9 @@
 package RPGGame;
 
+import jdk.internal.util.xml.impl.Input;
+
 import java.awt.*;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +17,7 @@ public class Game
     private Map map;
     private MapCreator mapCreator;
     private MenuConsole menuConsole;
+    private InputStream inputStream;
 
     /**
      *  A constructor for Game
