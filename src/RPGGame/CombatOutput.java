@@ -1,5 +1,13 @@
 package RPGGame;
 
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 /**
  *  CombatOutput - This class extends Combat and is only used to create the 'Console Interface'.
  *  @author Jim Poulsen
@@ -15,6 +23,24 @@ public class CombatOutput extends Combat
      *  A method to create all the output when the combat begins
      */
     public String createCombatScene() {
+        try
+        {
+            String gongFile = "C:\\Users\\POU\\Desktop\\FightMusic2.wav";
+            InputStream in = new FileInputStream(gongFile);
+
+            // create an audiostream from the inputstream
+            AudioStream audioStream = new AudioStream(in);
+
+            // play the audio clip with the audioplayer class
+            AudioPlayer.player.start(audioStream);
+            Media hit = new Media(gongFile);
+            MediaPlayer mediaPlayer = new MediaPlayer(hit);
+            mediaPlayer.play();
+        }
+        catch(Exception e)
+        {
+            System.out.print(e);
+        }
 
         int charsAmount = 75;
 
@@ -69,13 +95,9 @@ public class CombatOutput extends Combat
                             + "," + (monster.getSkillArray()[i].getMaxDamage() * monster.getDamage()) + ") ||\n";
                 }
                 else {
-
                     combat += addEmptySpace(charsAmount) + " ||\n";
-
                 }
-
             }
-
         }
         combat += "  |||FIGHT||FIGHT||FIGHT||FIGHT||FIGHT|||FIGHT||FIGHT||FIGHT||FIGHT||FIGHT|||\n";
         combat += "  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n";

@@ -1,5 +1,9 @@
 package RPGGame;
 
+import com.sun.xml.internal.fastinfoset.util.StringArray;
+
+import java.util.ArrayList;
+
 /**
  *  Player - Player extends basicCharacter. This is the character
  *  that will be used to play the actual game
@@ -21,6 +25,18 @@ public class Player extends BasicCharacter
 
         super(name, skills);
 
+    }
+
+    public ArrayList<String> getPlayerInfo()
+    {
+        ArrayList<String> playerInfoList = new ArrayList<String>();
+        playerInfoList.add(getName());
+        playerInfoList.add(String.valueOf(getLevel()));
+        playerInfoList.add(String.valueOf(getMaxHealth()));
+        playerInfoList.add(String.valueOf(getDamage()));
+        playerInfoList.add(String.valueOf(getExperience()));
+
+        return playerInfoList;
     }
 
     /**

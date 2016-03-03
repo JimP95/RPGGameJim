@@ -1,5 +1,7 @@
 package RPGGame;
 
+import XML.UseXML;
+
 /**
  *  Main - Main
  *  @author Jim Poulsen

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import SQL.DBHelper;
 
 /**
@@ -11,18 +13,19 @@ import SQL.DBHelper;
  */
 public class DBPlayer extends DBHelper
 {
-    void addPlayer(String playerName, int level, int maxHealth, int damage) throws SQLException {
-
+    public void addPlayer(ArrayList<String> playerInfo) throws SQLException
+    {
         try
         {
             String query;
-            query = "insert into player (Player_ID, PlayerName, Levels, MaxHealth, Damage) VALUES (NULL, ?, ?, ?, ?)";
-
+            //query = "insert into player (Player_ID, PlayerName, Levels, MaxHealth, Damage) VALUES (NULL, ?, ?, ?, ?)";
+            query = "insert into rpg_Player(player_ID, player_Name, player_Level, player_Health, player_Damage, player_Experience) VALUES (NULL, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStmt = (PreparedStatement) sqlConnection().prepareStatement(query);
-            preparedStmt.setString(1, playerName);
-            preparedStmt.setInt(2, level);
-            preparedStmt.setInt(3, maxHealth);
-            preparedStmt.setInt(4, damage);
+            preparedStmt.setString(1, playerInfo.get(0));
+            preparedStmt.setInt(2, Integer.parseInt(playerInfo.get(1)));
+            preparedStmt.setInt(3, Integer.parseInt(playerInfo.get(2)));
+            preparedStmt.setInt(4, Integer.parseInt(playerInfo.get(3)));
+            preparedStmt.setInt(5, Integer.parseInt(playerInfo.get(4)));
 
             preparedStmt.execute();
             sqlConnection().close();
@@ -32,54 +35,5 @@ public class DBPlayer extends DBHelper
             System.err.println("Got an exception!");
             System.err.println(e.getMessage());
         }
-
-    }
-
-    void updatePlayer(String playerName, int level, int maxHealth, int damage) throws SQLException {
-
-        try
-        {
-            String query;
-            query = "insert into player (Player_ID, PlayerName, Levels, MaxHealth, Damage) VALUES (NULL, ?, ?, ?, ?)";
-
-            PreparedStatement preparedStmt = (PreparedStatement) sqlConnection().prepareStatement(query);
-            preparedStmt.setString(1, playerName);
-            preparedStmt.setInt(2, level);
-            preparedStmt.setInt(3, maxHealth);
-            preparedStmt.setInt(4, damage);
-
-            preparedStmt.execute();
-            sqlConnection().close();
-        }
-        catch (Exception e)
-        {
-            System.err.println("Got an exception!");
-            System.err.println(e.getMessage());
-        }
-
-    }
-
-    void deletePlayer(String playerName, int level, int maxHealth, int damage) throws SQLException {
-
-        try
-        {
-            String query;
-            query = "insert into kunder (Player_ID, PlayerName, Levels, MaxHealth, Damage) VALUES (NULL, ?, ?, ?, ?)";
-
-            PreparedStatement preparedStmt = (PreparedStatement) sqlConnection().prepareStatement(query);
-            preparedStmt.setString(1, playerName);
-            preparedStmt.setInt(2, level);
-            preparedStmt.setInt(3, maxHealth);
-            preparedStmt.setInt(4, damage);
-
-            preparedStmt.execute();
-            sqlConnection().close();
-        }
-        catch (Exception e)
-        {
-            System.err.println("Got an exception!");
-            System.err.println(e.getMessage());
-        }
-
     }
 }

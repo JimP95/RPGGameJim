@@ -9,7 +9,7 @@ public class DBHelper
 {
     public Connection sqlConnection()
     {
-        String url = "jdbc:mysql://localhost:3306/kundedb";
+        String url = "jdbc:mysql://localhost:3306/rpggamedb";
         String username = "jim";
         String password = "password";
 

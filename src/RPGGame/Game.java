@@ -1,5 +1,7 @@
 package RPGGame;
 
+import SQL.DBPlayer;
+import XML.UseXML;
 import jdk.internal.util.xml.impl.Input;
 
 import java.awt.*;
@@ -18,6 +20,8 @@ public class Game
     private MapCreator mapCreator;
     private MenuConsole menuConsole;
     private InputStream inputStream;
+    private UseXML useXML;
+    private DBPlayer dbPlayer;
 
     /**
      *  A constructor for Game
@@ -28,6 +32,8 @@ public class Game
         map = new Map();
         characters = new ArrayList<BasicCharacter>();
         mapCreator = new MapCreator();
+        useXML = new UseXML();
+        dbPlayer = new DBPlayer();
     }
 
     /**
@@ -73,13 +79,9 @@ public class Game
         while(true)
         {
             menuConsole.printToConsole(mapCreator.getMap());
-
             processUserInput(menuConsole.showMenu(MenuEnum.MOVEMENT, "  Press w,a,s,d to move "));
-
             menuConsole.printToConsole(mapCreator.getMap());
-
             BasicCharacter[] charactersFighting = characterFight();
-
             if (charactersFighting == null)
                 moveMonsters();
 
@@ -88,10 +90,8 @@ public class Game
             if (charactersFighting != null)
             {
                 CombatOutput combat = new CombatOutput(charactersFighting[0], charactersFighting[1]);
-
                 menuConsole.printToConsole(mapCreator.getMap());
                 menuConsole.getInput("  !!!!!!!!!!!!!\n  MONSTER HAS APPEARED\n  PRESS ENTER TO START COMBAT\n  !!!!!!!!!!!!!\n");
-
 
                 while (combat.getWinner() == null)
                 {
@@ -111,34 +111,25 @@ public class Game
                             result += "\n  " + combat.getWinner().getName() + " is the winner!!\n";
 
                             menuConsole.printToConsole(combat.createCombatScene());
-
                         }
                         else
                             menuConsole.printToConsole(combat.createCombatScene());
-
                     }
                     else
                     {
                         menuConsole.printToConsole(combat.createCombatScene());
-
                         result +=   "\n  " + combat.getWinner().getName() + " is the winner!!\n" +
                                 "\n EarnedExperience: " + (combat.getWinner().getHealth() * 5) + " experience!\n";
                     }
-
                     menuConsole.getInput(result + "\n  Press enter to keep playing");
-
                 }
-
                 BasicCharacter winner = combat.getWinner(), loser = combat.getLoser();
 
-                if (winner instanceof Player) {
-
+                if (winner instanceof Player)
+                {
                     ((Player) winner).setExperience((((Player) winner).getExperience() + winner.getHealth() * 5));
-
                     winner.setTexture(map.heroTexture);
-
                     winner.setHealth(winner.getMaxHealth());
-
                     characters.remove(loser);
 
                     for (BasicCharacter basicCharacter : characters)
@@ -168,6 +159,7 @@ public class Game
             }
         }
     }
+
     /**
      * This private method return the two characters fighting
      */
@@ -202,6 +194,7 @@ public class Game
         return charactersFighting;
 
     }
+
     /**
      * This private method moves gets the user input based on where the
      * user wants to go
@@ -239,6 +232,7 @@ public class Game
             }
         }
     }
+
     /**
      *  Randomly move the monsters around
      */
@@ -253,6 +247,7 @@ public class Game
                 movePlayer(monster, new Point(xMovement, yMovement));
             }
     }
+
     /**
      * This private method moves the player around based on the points given
      * @param basicCharacter - The character(Player) to move
@@ -261,9 +256,7 @@ public class Game
     private void movePlayer(BasicCharacter basicCharacter, Point point)
     {
         Point oldLocation = basicCharacter.getLocation();
-
         Point newLocation = new Point(point.x + basicCharacter.getLocation().x, point.y + basicCharacter.getLocation().y);
-
         String result = mapCreator.moveTextureLocation(oldLocation, newLocation);
 
         if (result.contains("Success"))
@@ -275,12 +268,10 @@ public class Game
                 for (BasicCharacter characterCollided : characters)
                     if (basicCharacter.getLocation().equals(characterCollided.getLocation()))
                         characterCollided.setTexture(map.fightTexture);
-
             }
-
         }
-
     }
+
     /**
      * Based on the map loaded, spawn monsters
      * @param amount - The amount of monsters to spawn
@@ -294,17 +285,11 @@ public class Game
         for (int i = 0; i < amount; i++)
         {
             BasicCharacter monster = new Monster("MONSTER" + String.valueOf(i + 1), 1);
-
             monster.setLevel(level);
-
             monster.setSkills(new Skills("Cyclone", 5, 10), 0);
-
             monster.setTexture(map.monsterTexture);
-
             monster.setLocation(mapCreator.getTextureLocations(map.floorTexture).get(mapCreator.getTextureLocations(map.floorTexture).size() - 1));
-
             characters.add(monster);
-
             mapCreator.setTextureLocation(monster.getTexture(), monster.getLocation());
         }
     }
@@ -337,9 +322,7 @@ public class Game
         {
             return -1;
         }
-
         return value;
-
     }
     /**
      *  This methods creates a character
@@ -350,98 +333,80 @@ public class Game
         if (characterType == "Player")
         {
             menuConsole.printToConsole("  Hi there and thank you for playing!\n\n  Please write a name for your character");
-
             Player player = new Player(menuConsole.getInput("  Choose your name: "), 3);
-
             player.setLevel(1);
             player.setSkills(new Skills("Punch", 10, 45), 0);
             player.setSkills(new Skills("Kick", 30, 35), 1);
             player.setSkills(new Skills("!!NUKE!!", 1000, 10000), 2);
 
+            // Save player to DB and XML
+            try
+            {
+                useXML.savePlayerToXML(player.getPlayerInfo());
+                dbPlayer.addPlayer(player.getPlayerInfo());
+            }
+            catch (Exception e)
+            {
+
+            }
+
+
             player.setTexture(map.heroTexture);
-
             showMaps();
-
             if (mapCreator.getTextureLocations(player.getTexture()).size() == 0)
             {
                 if (mapCreator.getTextureLocations(map.floorTexture).size() == 0)
                 {
                     menuConsole.getInput("Error using map, no floor textures detected.\nPress 'ENTER' to start over...");
-
                     characters.clear();
-
                     createCharacter(characterType = "Player");
-
                 }
                 else
                 {
                     player.setLocation(mapCreator.getTextureLocations(map.floorTexture).get(0));
-
                     characters.add(player);
-
                     mapCreator.setTextureLocation(player.getTexture(), player.getLocation());
                 }
-
             }
             else
             {
                 player.setLocation(mapCreator.getTextureLocations(player.getTexture()).get(0));
-
                 characters.add(player);
             }
-
         }
         else
         {
             Monster monster = new Monster("MONSTER1", 1);
-
             monster.setLevel(1);
-
             monster.setSkills(new Skills("Punch", 5, 10), 0);
-
             monster.setTexture(map.monsterTexture);
-
             if (mapCreator.getTextureLocations(monster.getTexture()).size() == 0)
             {
                 if (mapCreator.getTextureLocations(map.floorTexture).size() == 0)
                 {
                     menuConsole.getInput("Error using map, no floor textures detected.\nPress 'ENTER' to start over...");
-
                     characters.clear();
-
                     createCharacter(characterType = "Monster");
                 }
                 else
                 {
                     monster.setLocation(mapCreator.getTextureLocations(map.floorTexture).get(mapCreator.getTextureLocations(map.floorTexture).size() - 1));
-
                     characters.add(monster);
-
                     mapCreator.setTextureLocation(monster.getTexture(), monster.getLocation());
                 }
-
             }
             else
             {
                 for (int i = 0; i < mapCreator.getTextureLocations(map.monsterTexture).size(); i++)
                 {
                     monster = new Monster("MONSTER" + String.valueOf(i + 1), 1);
-
                     monster.setLevel(1);
-
                     monster.setSkills(new Skills("Basic", 1, 10), 0);
-
                     monster.setTexture(map.monsterTexture);
-
                     monster.setLocation(mapCreator.getTextureLocations(monster.getTexture()).get(i));
-
                     characters.add(monster);
-
                 }
-
             }
-
         }
-
     }
 }
