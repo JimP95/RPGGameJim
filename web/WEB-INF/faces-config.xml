@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+    http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <managed-bean>
+        <managed-bean-name>BeanDBHelper</managed-bean-name>
+        <managed-bean-class>BeanDBHelper</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>playerName</property-name>
+            <value>#{String}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>playerLevel</property-name>
+            <value>#{String}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>playerHealth</property-name>
+            <value>#{String}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>playerDamage</property-name>
+            <value>#{String}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>playerExperience</property-name>
+            <value>#{String}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>listBean</managed-bean-name>
+        <managed-bean-class>java.util.ArrayList</managed-bean-class>
+        <managed-bean-scope>none</managed-bean-scope>
+        <list-entries>
+            <value>Steve Jobs</value>
+            <value>Sergy Brin</value>
+            <value>Larry Page</value>
+            <value>Anil Ambani</value>
+        </list-entries>
+    </managed-bean>
+</faces-config>

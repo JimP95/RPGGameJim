@@ -1,5 +1,9 @@
 package RPGGame;
 
+import SQL.DBCombatHistory;
+
+import java.sql.SQLException;
+
 /**
  *  Combat - Create a combat based on two characters Player and Monster
  *  @author Jim Poulsen
@@ -19,16 +23,21 @@ public class Combat
      *  This is for the combat output with a set a string of characters
      */
     public String combat;
+
+    private DBCombatHistory combatdb;
+
     /**
      *  A constructor
      *  @param player - The player character
      *  @param monster - The monster character
      */
-    public Combat(BasicCharacter player, BasicCharacter monster) {
-
+    public Combat(BasicCharacter player, BasicCharacter monster)
+    {
         this.player = player;
         this.monster = monster;
+        combatdb = new DBCombatHistory();
     }
+
     /**
      *  This method is to add emptySpace easily
      *  @param - The number of spaces needed
@@ -42,6 +51,7 @@ public class Combat
 
         return stringOfEmptySpace;
     }
+
     /**
      *  This method is used for attacking in combat.
      *  @param input - The index of the skill
@@ -85,28 +95,41 @@ public class Combat
 
         }
 
-        if (player.getHealth() == 0) {
-
+        if (player.getHealth() == 0)
+        {
             win = monster;
             lose = player;
-
+            try {
+                combatdb.addCombat(player.getName(), monster.getName(), monster.getName());
+            }
+            catch(Exception e)
+            {
+                System.err.println(e);
+            }
         }
-        else if (monster.getHealth() == 0) {
-
+        else if (monster.getHealth() == 0)
+        {
             win = player;
             lose = monster;
-
+            try {
+                combatdb.addCombat(player.getName(), monster.getName(), player.getName());
+            }
+            catch(Exception e)
+            {
+                System.err.println(e);
+            }
         }
 
         return result + "\n";
 
     }
+
     /**
      *  This method is to calculate the character damage
      *  @param character - This is the character
      *  @param skillIndex - The index of the skill
      */
-    private int calculateCharacterDamage(BasicCharacter character, int skillIndex) {
+    public int calculateCharacterDamage(BasicCharacter character, int skillIndex) {
 
         int damage = (int) (Math.random() * (character.getSkillArray()[skillIndex].getMaxDamage() - character.getSkillArray()[skillIndex].getMinDamage()) + 1);
 
@@ -116,6 +139,7 @@ public class Combat
 
         return damage;
     }
+
     /**
      *  A get for winner
      */
@@ -124,6 +148,7 @@ public class Combat
         return win;
 
     }
+
     /**
      *  A get for Loser
      */

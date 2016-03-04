@@ -1,9 +1,6 @@
 package UnitTests;
 
-import RPGGame.BasicCharacter;
-import RPGGame.Combat;
-import RPGGame.Monster;
-import RPGGame.Player;
+import RPGGame.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,9 +11,18 @@ import static org.junit.Assert.*;
  */
 public class CombatTest {
 
-    Player player = new Player("PlayerTest", 3);
-    Monster monster = new Monster("MonsterTest", 1);
-    Combat combat = new Combat(player, monster);
+    private Player player;
+    private Monster monster;
+    private Combat combat;
+    private Skills skills;
+
+    @Before
+    public void setUp() throws Exception {
+        player = new Player("PlayerTest", 1);
+        monster = new Monster("MonsterTest", 1);
+        combat = new Combat(player, monster);
+        skills = new Skills("TestSkill", 1000, 10000);
+    }
 
     @Test
     public void testAddEmptySpace() throws Exception
@@ -26,11 +32,11 @@ public class CombatTest {
     }
 
     @Test
-    public void testAttack() throws Exception
+    public void testCalculateCharacterDamage() throws Exception
     {
-        String result = combat.attack("2", true);
-        assertEquals("  You hit Monster1 for 1000!", result);
+        player.setSkills(skills, 0);
+        int result = combat.calculateCharacterDamage(player, 0);
+        assertEquals(1000, 1000, result);
     }
-
 
 }

@@ -1,11 +1,13 @@
 package RPGGame;
 
+import SQL.DBCombatHistory;
 import SQL.DBPlayer;
 import XML.UseXML;
 import jdk.internal.util.xml.impl.Input;
 
 import java.awt.*;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +24,7 @@ public class Game
     private InputStream inputStream;
     private UseXML useXML;
     private DBPlayer dbPlayer;
+    private DBCombatHistory dbCombatHistory;
 
     /**
      *  A constructor for Game
@@ -34,14 +37,14 @@ public class Game
         mapCreator = new MapCreator();
         useXML = new UseXML();
         dbPlayer = new DBPlayer();
+        dbCombatHistory = new DBCombatHistory();
     }
 
     /**
      *  This method is for a quick output to the console and start the menu options
      */
-    public void beginGame()
-    {
-        menuConsole.printToConsole(" || RPGGAME MENU ||\n");
+    public void beginGame() {
+        menuConsole.printToConsoleWithoutSpace("\n  <!<>!>  RPG MENU  <!<>!>\n");
 
         int input = convertToInteger(menuConsole.showMenu(MenuEnum.STARTMENU, ""));
 
@@ -49,10 +52,19 @@ public class Game
         {
             case 1:  startGame();
                 break;
-
+            case 2:
+                try {
+                    dbPlayer.showPlayers();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                beginGame();
+            case 3:  closeGame();
+                break;
             default: beginGame();
         }
     }
+
     /**
      *  When the user has written a name and selected a map then this method will be
      *  called to start the actual game
@@ -71,6 +83,7 @@ public class Game
         gameLoop();
 
     }
+
     /**
      *  Private method to start the actual loop
      */
@@ -79,7 +92,7 @@ public class Game
         while(true)
         {
             menuConsole.printToConsole(mapCreator.getMap());
-            processUserInput(menuConsole.showMenu(MenuEnum.MOVEMENT, "  Press w,a,s,d to move "));
+            processUserInput(menuConsole.showMenu(MenuEnum.MOVEMENT, "  Press w,a,s,d to move \n  You can also type 'Combat' to see your combat history!\n\n"));
             menuConsole.printToConsole(mapCreator.getMap());
             BasicCharacter[] charactersFighting = characterFight();
             if (charactersFighting == null)
@@ -119,7 +132,7 @@ public class Game
                     {
                         menuConsole.printToConsole(combat.createCombatScene());
                         result +=   "\n  " + combat.getWinner().getName() + " is the winner!!\n" +
-                                "\n EarnedExperience: " + (combat.getWinner().getHealth() * 5) + " experience!\n";
+                                "\n  EarnedExperience: " + (combat.getWinner().getHealth() * 5) + " experience!\n";
                     }
                     menuConsole.getInput(result + "\n  Press enter to keep playing");
                 }
@@ -128,7 +141,7 @@ public class Game
                 if (winner instanceof Player)
                 {
                     ((Player) winner).setExperience((((Player) winner).getExperience() + winner.getHealth() * 5));
-                    winner.setTexture(map.heroTexture);
+                    winner.setTexture(map.playerTexture);
                     winner.setHealth(winner.getMaxHealth());
                     characters.remove(loser);
 
@@ -145,7 +158,7 @@ public class Game
 
                     loser.setHealth(loser.getMaxHealth());
 
-                    loser.setTexture(map.heroTexture);
+                    loser.setTexture(map.playerTexture);
 
                     loser.setLocation(loser.getPreviousLocation());
 
@@ -202,74 +215,44 @@ public class Game
      */
     private void processUserInput(String input)
     {
-        if (input.toCharArray().length == 1)
-        {
-            switch (input.toCharArray()[0])
+            switch (input)
             {
-                case 'w':   for (BasicCharacter hero : characters)
-                    if (hero instanceof Player)
-                        movePlayer(hero, new Point(0, -1));
+                case "w":   for (BasicCharacter player : characters)
+                    if (player instanceof Player)
+                        movePlayer(player, new Point(0, -1));
 
                     break;
 
-                case 's':   for (BasicCharacter hero : characters)
-                    if (hero instanceof Player)
-                        movePlayer(hero, new Point(0, 1));
+                case "s":   for (BasicCharacter player : characters)
+                    if (player instanceof Player)
+                        movePlayer(player, new Point(0, 1));
 
                     break;
 
-                case 'a':   for (BasicCharacter hero : characters)
-                    if (hero instanceof Player)
-                        movePlayer(hero, new Point(-1, 0));
+                case "a":   for (BasicCharacter player : characters)
+                    if (player instanceof Player)
+                        movePlayer(player, new Point(-1, 0));
 
                     break;
 
-                case 'd':   for (BasicCharacter hero : characters)
-                    if (hero instanceof Player)
-                        movePlayer(hero, new Point(1, 0));
+                case "d":   for (BasicCharacter player : characters)
+                    if (player instanceof Player)
+                        movePlayer(player, new Point(1, 0));
 
+                    break;
+
+                case "Combat": for (BasicCharacter player : characters)
+                    if (player instanceof Player)
+                    try
+                    {
+                        dbCombatHistory.showCombatHistory(player.getName());
+                    }
+                    catch (Exception e) {
+                        System.err.println(e);
+                    }
+                    menuConsole.getInput("  Press enter to continue!");
                     break;
             }
-        }
-    }
-
-    /**
-     *  Randomly move the monsters around
-     */
-    private void moveMonsters()
-    {
-        for (BasicCharacter monster : characters)
-            if (monster instanceof Monster)
-            {
-                int xMovement = (int) (Math.random() * 3) - 1,
-                        yMovement = (int) (Math.random() * 3) - 1;
-
-                movePlayer(monster, new Point(xMovement, yMovement));
-            }
-    }
-
-    /**
-     * This private method moves the player around based on the points given
-     * @param basicCharacter - The character(Player) to move
-     * @param point - How much the player should be moved
-     */
-    private void movePlayer(BasicCharacter basicCharacter, Point point)
-    {
-        Point oldLocation = basicCharacter.getLocation();
-        Point newLocation = new Point(point.x + basicCharacter.getLocation().x, point.y + basicCharacter.getLocation().y);
-        String result = mapCreator.moveTextureLocation(oldLocation, newLocation);
-
-        if (result.contains("Success"))
-        {
-            basicCharacter.setLocation(newLocation);
-
-            if (result.contains("Player") || result.contains("Monster"))
-            {
-                for (BasicCharacter characterCollided : characters)
-                    if (basicCharacter.getLocation().equals(characterCollided.getLocation()))
-                        characterCollided.setTexture(map.fightTexture);
-            }
-        }
     }
 
     /**
@@ -293,19 +276,20 @@ public class Game
             mapCreator.setTextureLocation(monster.getTexture(), monster.getLocation());
         }
     }
+
     /**
      *  Show maps to user
      */
     public void showMaps()
     {
         int input;
-
-        menuConsole.printToConsole("  You can select one of the follwing maps:\n");
+        menuConsole.printToConsole("  Your player info has now been saved to XML and our Database!!\n\n  You can select one of the follwing maps:\n");
         input = convertToInteger(menuConsole.showMenu(MenuEnum.STARTMAP, mapCreator.getMaps()));
         mapCreator.setMap(mapCreator.getMapFileName(input));
         menuConsole.printToConsole("");
         menuConsole.printToConsole(mapCreator.getMap());
     }
+
     /**
      *  Convert a string to int
      *  @param string - The string to convert
@@ -324,6 +308,7 @@ public class Game
         }
         return value;
     }
+
     /**
      *  This methods creates a character
      *  @param characterType - String of either Player or Monster
@@ -332,7 +317,7 @@ public class Game
     {
         if (characterType == "Player")
         {
-            menuConsole.printToConsole("  Hi there and thank you for playing!\n\n  Please write a name for your character");
+            menuConsole.printToConsole("  Hi there and thank you for playing!\n\n  Please write a name for your character\n");
             Player player = new Player(menuConsole.getInput("  Choose your name: "), 3);
             player.setLevel(1);
             player.setSkills(new Skills("Punch", 10, 45), 0);
@@ -347,11 +332,10 @@ public class Game
             }
             catch (Exception e)
             {
-
+                System.err.println(e);
             }
 
-
-            player.setTexture(map.heroTexture);
+            player.setTexture(map.playerTexture);
             showMaps();
             if (mapCreator.getTextureLocations(player.getTexture()).size() == 0)
             {
@@ -408,5 +392,50 @@ public class Game
                 }
             }
         }
+    }
+
+    /**
+     *  Randomly move the monsters around
+     */
+    public void moveMonsters()
+    {
+        for (BasicCharacter monster : characters)
+            if (monster instanceof Monster)
+            {
+                int xMovement = (int) (Math.random() * 3) - 1,
+                        yMovement = (int) (Math.random() * 3) - 1;
+
+                movePlayer(monster, new Point(xMovement, yMovement));
+            }
+    }
+
+    /**
+     * This private method moves the player around based on the points given
+     * @param basicCharacter - The character(Player) to move
+     * @param point - How much the player should be moved
+     */
+    public void movePlayer(BasicCharacter basicCharacter, Point point)
+    {
+        Point oldLocation = basicCharacter.getLocation();
+        Point newLocation = new Point(point.x + basicCharacter.getLocation().x, point.y + basicCharacter.getLocation().y);
+        String result = mapCreator.moveTextureLocation(oldLocation, newLocation);
+
+        if (result.contains("Success"))
+        {
+            basicCharacter.setLocation(newLocation);
+
+            if (result.contains("Player") || result.contains("Monster"))
+            {
+                for (BasicCharacter characterCollided : characters)
+                    if (basicCharacter.getLocation().equals(characterCollided.getLocation()))
+                        characterCollided.setTexture(map.fightTexture);
+            }
+        }
+    }
+
+    private void closeGame()
+    {
+        menuConsole.printToConsole("  Thank you for playing!\n");
+        System.exit(0);
     }
 }

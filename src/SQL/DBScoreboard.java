@@ -5,5 +5,5 @@ package SQL;
  */
 public class DBScoreboard
 {
-
+    //TODO Add resultset for scores containing how many monsters the player have killed before dying
 }

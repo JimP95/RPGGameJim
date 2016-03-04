@@ -23,24 +23,6 @@ public class CombatOutput extends Combat
      *  A method to create all the output when the combat begins
      */
     public String createCombatScene() {
-        try
-        {
-            String gongFile = "C:\\Users\\POU\\Desktop\\FightMusic2.wav";
-            InputStream in = new FileInputStream(gongFile);
-
-            // create an audiostream from the inputstream
-            AudioStream audioStream = new AudioStream(in);
-
-            // play the audio clip with the audioplayer class
-            AudioPlayer.player.start(audioStream);
-            Media hit = new Media(gongFile);
-            MediaPlayer mediaPlayer = new MediaPlayer(hit);
-            mediaPlayer.play();
-        }
-        catch(Exception e)
-        {
-            System.out.print(e);
-        }
 
         int charsAmount = 75;
 

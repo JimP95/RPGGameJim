@@ -32,6 +32,16 @@ public class MenuConsole
 
         System.out.println(outputString);
     }
+
+    /**
+     *  Basic method print to console without the extra space
+     *  @param outputString - the output string that should be printed
+     */
+    public void printToConsoleWithoutSpace(String outputString)
+    {
+        System.out.println(outputString);
+    }
+
     /**
      *  Showmenu method that shows the different menus based on the menuType specified
      *  @param menuType - The type of menu to be shown
@@ -42,13 +52,13 @@ public class MenuConsole
         String input = "";
         switch (menuType)
         {
-            case STARTMENU: input = getInput(" [1]StartGame\n\n  ");
+            case STARTMENU: input = getInput("  [1]CreatePlayer\n  [2]ShowPlayersFromDB\n  [3]CloseGame\n\n");
                 break;
 
             case STARTMAP: input = getInput(additionalString);
                 break;
 
-            case MOVEMENT:  input = getInput(additionalString + "[w]->UP [s]->DOWN [a]->LEFT [d]->RIGHT\n  ");
+            case MOVEMENT:  input = getInput(additionalString + "  [w]->UP [s]->DOWN [a]->LEFT [d]->RIGHT\n  ");
                 break;
 
             case COMBAT:  input = getInput("  Select skill [1][2][3]! " + additionalString);

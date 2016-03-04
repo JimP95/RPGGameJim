@@ -11,7 +11,7 @@ public interface IMapTextures
 
     String[] floorTexture = { " " };
 
-    String[] heroTexture = { "P" };
+    String[] playerTexture = { "P" };
 
     String[] monsterTexture = { "M" };
 

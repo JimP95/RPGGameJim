@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public class MapCreator extends Map implements IMapTextures
 {
+
     /**
      *  This method add the the charArray which is responsible for the map creation.
      *  @param mapFileName - the name of the file
@@ -34,7 +35,7 @@ public class MapCreator extends Map implements IMapTextures
                 else if (mapFromFile.get(y).toCharArray()[x] == floorSymbol)
                     map[x][y] = floorTexture;
                 else if (mapFromFile.get(y).toCharArray()[x] == heroSymbol)
-                    map[x][y] = heroTexture;
+                    map[x][y] = playerTexture;
                 else if (mapFromFile.get(y).toCharArray()[x] == monsterSymbol)
                     map[x][y] = monsterTexture;
             }
@@ -77,6 +78,7 @@ public class MapCreator extends Map implements IMapTextures
         }
         return stringMap;
     }
+
     /**
      *  Get the map based on input
      *  @param index - Index selected by the user
@@ -90,6 +92,7 @@ public class MapCreator extends Map implements IMapTextures
 
         return files[index - 1].getName();
     }
+
     /**
      *  Get the map files from the directory with the end .map
      */
@@ -109,6 +112,7 @@ public class MapCreator extends Map implements IMapTextures
         return new File(mapDirectory).listFiles(filenameFilter);
 
     }
+
     /**
      *  Get the textures for the map creation
      *  @param texture - The texture found
@@ -124,6 +128,7 @@ public class MapCreator extends Map implements IMapTextures
 
         return points;
     }
+
     /**
      *  Set the texture based on point
      *  @param texture - The texture found
@@ -133,6 +138,7 @@ public class MapCreator extends Map implements IMapTextures
     {
         map[point.x][point.y] = texture;
     }
+
     /**
      *  Move the texture based on point a to b
      *  @param fromPoint - The point from where the texture should be moved from
@@ -156,13 +162,13 @@ public class MapCreator extends Map implements IMapTextures
                 result = "Success: Floor";
             }
         }
-        else if (map[fromPoint.x][fromPoint.y] == heroTexture && map[toPoint.x][toPoint.y] == monsterTexture)
+        else if (map[fromPoint.x][fromPoint.y] == playerTexture && map[toPoint.x][toPoint.y] == monsterTexture)
         {
             map[fromPoint.x][fromPoint.y] = floorTexture;
 
             result = "Success: Monster";
         }
-        else if (map[fromPoint.x][fromPoint.y] == monsterTexture && map[toPoint.x][toPoint.y] == heroTexture)
+        else if (map[fromPoint.x][fromPoint.y] == monsterTexture && map[toPoint.x][toPoint.y] == playerTexture)
         {
             map[fromPoint.x][fromPoint.y] = floorTexture;
 
@@ -170,4 +176,5 @@ public class MapCreator extends Map implements IMapTextures
         }
         return result;
     }
+
 }
